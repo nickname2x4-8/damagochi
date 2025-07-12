@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🐣 다마고치</title>
+  <style>
+    @font-face {
+      font-family: 'DungGeunMo';
+      src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'DungGeunMo', sans-serif;
+      background-color: #fffbe7;
+      text-align: center;
+      padding: 30px 20px;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+
+    #pet {
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+      margin-bottom: 20px;
+    }
+
+    #status {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      max-width: 300px;
+      margin: 10px auto;
+      padding: 15px 0;
+      font-size: 1.5rem;
+      font-family: 'DungGeunMo', sans-serif;
+      background-color: #ffef9f;
+      border: 2px solid #c8a300;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      background-color: #ffe680;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🐣 다마고치</h1>
+  <img id="pet" src="character_normal.png" alt="다마고치 캐릭터" />
+
+  <div id="status">
+    <p>배고픔: <span id="hunger">5</span></p>
+    <p>행복도: <span id="happiness">5</span></p>
+  </div>
+
+  <button onclick="feed()">🍖 먹이 주기</button>
+  <button onclick="play()">🎾 놀아주기</button>
+
+  <script>
+    let hunger = 5;
+    let happiness = 5;
+
+    const hungerSpan = document.getElementById('hunger');
+    const happinessSpan = document.getElementById('happiness');
+    const petImage = document.getElementById('pet');
+
+    function updateDisplay() {
+      hungerSpan.textContent = hunger;
+      happinessSpan.textContent = happiness;
+    }
+
+    function showHappyFace() {
+      petImage.src = "character_happy.png";
+      setTimeout(() => {
+        petImage.src = "character_normal.png";
+      }, 3000);
+    }
+
+    function feed() {
+      if (hunger > 0) hunger--;
+      updateDisplay();
+      showHappyFace();
+    }
+
+    function play() {
+      if (happiness < 10) happiness++;
+      updateDisplay();
+      showHappyFace();
+    }
+
+    updateDisplay();
+  </script>
+
+</body>
+</html>
