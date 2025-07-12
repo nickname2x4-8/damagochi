@@ -47,19 +47,36 @@
 
     #heart {
       position: absolute;
-      top: 20px;
+      top: 50%;
       left: 50%;
-      transform: translateX(-50%);
+      transform: translate(-50%, 0);
       font-size: 2.5rem;
       color: black;
       opacity: 0;
-      transition: opacity 0.3s, transform 0.5s;
       pointer-events: none;
     }
 
+    /* 하트 애니메이션 */
     .show-heart {
-      opacity: 1;
-      transform: translateX(-50%) translateY(-30px);
+      animation: floatUp 1s ease-out forwards;
+    }
+
+    @keyframes floatUp {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, 0);
+      }
+      20% {
+        opacity: 1;
+      }
+      80% {
+        opacity: 1;
+        transform: translate(-50%, -40px);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -60px);
+      }
     }
 
     #status {
@@ -75,7 +92,7 @@
       padding: 15px 0;
       font-size: 1.5rem;
       font-family: 'DungGeunMo', sans-serif;
-      background-color: #225577; /* 어두운 하늘색 */
+      background-color: #225577;
       border: 2px solid #113355;
       color: white;
       border-radius: 10px;
@@ -128,10 +145,9 @@
     }
 
     function showHeart() {
-      heart.classList.add("show-heart");
-      setTimeout(() => {
-        heart.classList.remove("show-heart");
-      }, 1000);
+      heart.classList.remove("show-heart"); // 리셋
+      void heart.offsetWidth; // 강제로 reflow (애니 재적용 위한 트릭)
+      heart.classList.add("show-heart");    // 다시 적용
     }
 
     function feed() {
