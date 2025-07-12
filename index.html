@@ -21,6 +21,7 @@
     body {
       font-family: 'DungGeunMo', sans-serif;
       background-color: #640000;
+      color: #fff;
       text-align: center;
       padding: 30px 20px;
       max-width: 500px;
@@ -32,11 +33,33 @@
       margin-bottom: 20px;
     }
 
+    #pet-container {
+      position: relative;
+      display: inline-block;
+    }
+
     #pet {
       width: 100%;
       max-width: 300px;
       height: auto;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
+    }
+
+    #heart {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2.5rem;
+      color: black;
+      opacity: 0;
+      transition: opacity 0.3s, transform 0.5s;
+      pointer-events: none;
+    }
+
+    .show-heart {
+      opacity: 1;
+      transform: translateX(-50%) translateY(-30px);
     }
 
     #status {
@@ -52,22 +75,27 @@
       padding: 15px 0;
       font-size: 1.5rem;
       font-family: 'DungGeunMo', sans-serif;
-      background-color: #ffef9f;
-      border: 2px solid #c8a300;
+      background-color: #225577; /* 어두운 하늘색 */
+      border: 2px solid #113355;
+      color: white;
       border-radius: 10px;
       cursor: pointer;
       transition: 0.2s;
     }
 
     button:hover {
-      background-color: #ffe680;
+      background-color: #1a4466;
     }
   </style>
 </head>
 <body>
 
   <h1>🐣 다마고치</h1>
-  <img id="pet" src="character_normal.png" alt="다마고치 캐릭터" />
+
+  <div id="pet-container">
+    <img id="pet" src="character_normal.png" alt="다마고치 캐릭터" />
+    <div id="heart">♥</div>
+  </div>
 
   <div id="status">
     <p>배고픔: <span id="hunger">5</span></p>
@@ -84,6 +112,7 @@
     const hungerSpan = document.getElementById('hunger');
     const happinessSpan = document.getElementById('happiness');
     const petImage = document.getElementById('pet');
+    const heart = document.getElementById('heart');
 
     function updateDisplay() {
       hungerSpan.textContent = hunger;
@@ -92,9 +121,17 @@
 
     function showHappyFace() {
       petImage.src = "character_happy.png";
+      showHeart();
       setTimeout(() => {
         petImage.src = "character_normal.png";
       }, 3000);
+    }
+
+    function showHeart() {
+      heart.classList.add("show-heart");
+      setTimeout(() => {
+        heart.classList.remove("show-heart");
+      }, 1000);
     }
 
     function feed() {
